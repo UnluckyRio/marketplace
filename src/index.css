@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Reset e stili base */
 * {
@@ -125,4 +125,23 @@ input:focus, textarea:focus, select:focus {
   transition-property: box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Stili per le card prodotto */
+.product-card {
+  height: auto;
+}
+
+.product-card button {
+  margin-top: 1rem;
+}
+
+/* Animazione per lo spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

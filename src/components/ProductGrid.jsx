@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { StarIcon, HeartIcon } from '@heroicons/react/24/solid'
-import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline'
+import { StarIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
+import { HeartIcon } from '@heroicons/react/24/outline'
 
 // Dati di esempio per i prodotti
 const sampleProducts = [
@@ -108,14 +108,16 @@ const ProductCard = ({ product, onAddToCart }) => {
   }
   
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 group">
       {/* Immagine del prodotto */}
-      <div className="relative overflow-hidden">
-        <img 
-          src={product.image} 
-          alt={product.name}
-          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-        />
+      <div className="relative">
+        <div className="w-full h-64 bg-gray-100 flex items-center justify-center rounded-t-lg">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
         
         {/* Badge sconto */}
         {product.discount > 0 && (
@@ -130,9 +132,9 @@ const ProductCard = ({ product, onAddToCart }) => {
           className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow"
         >
           {isFavorite ? (
-            <HeartIcon className="h-5 w-5 text-red-500" />
+            <HeartSolidIcon className="h-5 w-5 text-red-500" />
           ) : (
-            <HeartOutlineIcon className="h-5 w-5 text-gray-400" />
+            <HeartIcon className="h-5 w-5 text-gray-400" />
           )}
         </button>
       </div>
@@ -143,7 +145,7 @@ const ProductCard = ({ product, onAddToCart }) => {
           <span className="text-xs text-gray-500 uppercase tracking-wide">{product.category}</span>
         </div>
         
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">
           {product.name}
         </h3>
         
@@ -165,27 +167,49 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
         
         {/* Prezzo */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <span className="text-2xl font-bold text-gray-900">
-              €{product.price.toFixed(2)}
+        <div className="mb-4">
+          <span className="text-2xl font-bold text-gray-900">
+            €{product.price.toFixed(2)}
+          </span>
+          {product.originalPrice > product.price && (
+            <span className="ml-2 text-sm text-gray-500 line-through">
+              €{product.originalPrice.toFixed(2)}
             </span>
-            {product.originalPrice > product.price && (
-              <span className="ml-2 text-sm text-gray-500 line-through">
-                €{product.originalPrice.toFixed(2)}
-              </span>
-            )}
-          </div>
+          )}
         </div>
         
         {/* Pulsante aggiungi al carrello */}
         <button
           onClick={handleAddToCart}
           disabled={isLoading}
-          className="w-full bg-orange-400 hover:bg-orange-500 disabled:bg-orange-300 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
+          style={{
+            width: '100%',
+            backgroundColor: '#fb923c',
+            color: 'white',
+            fontWeight: '600',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '16px',
+            fontSize: '14px',
+            transition: 'background-color 0.2s'
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#ea580c'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#fb923c'}
         >
           {isLoading ? (
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            <div style={{
+              width: '20px',
+              height: '20px',
+              border: '2px solid white',
+              borderTop: '2px solid transparent',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}></div>
           ) : (
             'Aggiungi al Carrello'
           )}
