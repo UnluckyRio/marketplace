@@ -111,11 +111,11 @@ const ProductCard = ({ product, onAddToCart }) => {
     <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 group">
       {/* Immagine del prodotto */}
       <div className="relative">
-        <div className="w-full h-64 bg-gray-100 flex items-center justify-center rounded-t-lg">
+        <div className="w-full h-64 bg-gray-100 rounded-t-lg overflow-hidden">
           <img 
             src={product.image} 
             alt={product.name}
-            className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
         
